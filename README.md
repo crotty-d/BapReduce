@@ -1,22 +1,21 @@
-﻿# Bash 
-MapReduce Engine
+﻿# Bash MapReduce Engine
 
 ## Project aims
 
 1) In Bash, implement a single-node MapReduce engine (‘job master’) that does the
 following:
 
-a) Takes a repository of csv data files and a target attribute (column of the data) as input
+i) Takes a repository of csv data files and a target attribute (column of the data) as input
 and outputs a list of key–value pairs, each comprising a unique value (key) of the
 attribute and the number times that value appears in the repository (value or count).
 
-b) Uses three core scripts to achieve this: a map process (mapper) to find and group all the
+ii) Uses three core scripts to achieve this: a map process (mapper) to find and group all the
 different instances of the attribute (e.g. product name) into separate files (key-files); a
 reduce process (reducer) to take each key-file and count its contents, returning the key
 and the count as a space-separated pair; and thirdly, a job master script to assign files to
 the mapper and reducer and to coordinate and monitor their progress.
 
-c) Communication between the job master and the mapper/reducer should be via named
+iii) Communication between the job master and the mapper/reducer should be via named
 pipes.
 
 
@@ -29,11 +28,8 @@ master node should facilitate data transfer between the two job master nodes.
 
 ## Running the scripts
 
-------------------
 
-Single-node engine
-
-------------------
+### Single-node engine
 
 First open a Bash terminal. To process a particular respository ('sales_data' for multiple files, or 'single_file_data' for single complete data file) and a particular attribute (column) of the data, run ./job_master.sh with the repository name (string) and the column number (integer) as arguments. For example, to perform a multi-file MapReduce on the sales data, targeting product names, cd to the 'program' directory and enter the following:
 
@@ -44,22 +40,11 @@ As well as being displayed in terminal, the completion of steps and output of va
 
 
 
-------------------
+### Multi-node engine
 
-Multi-node engine
+NOT IMPLEMENTED YET
 
-------------------
-
-NOT IMPLEMENTED
-
-
- YET
-
-------------------
-
-Testing
-
-------------------
+### Testing
 
 Run ./test_mapreduce.sh in the terminal to test split and single-file performance on product name and country attributes; and also single attribute performance on product number and credit card. It runs each MapReduce program (job_master.sh plus the given arguments) in sequence, displaying steps and values from the program as before. However, it also gives the completion time for each program via the Bash command 'time'. Of the three times provided, the 'real' time is the regular, real-world completion time. For easy performance comparison and recording, these completion times are logged to a corresponding file in the testing directory.
 
@@ -67,7 +52,7 @@ Run ./test_mapreduce.sh in the terminal to test split and single-file performanc
 
 ## Outline of key scripts (current state)
 
-*Job Master (job_master.sh [arg1] [arg2])*
+**Job Master (job_master.sh [arg1] [arg2])**
 
 Setup
 • First some initial housekeeping is done, particularly clearing temporary files.
@@ -85,7 +70,7 @@ Reduce
 • Start that number of reducers (reduce.sh) in background.
 • Listen to reduce_pipe to get each key-value pair (key count) from the reducers and to determine when all files have been reduced.
 
-*Mapper (map.sh [arg1] [arg2])*
+**Mapper (map.sh [arg1] [arg2])**
 
 • The arguments are assigned to the variables, ‘file’ (file to map) and ‘column’ (attribute[column number] to target).
 • Isolate (cut command) the instances of target keys (column) in the file to a temporary file in the 'instance_lists' directory.
@@ -93,7 +78,7 @@ Reduce
 • Send key to job master via map_pipe
 • Alert job master and log that the file mapping is complete
 
-*Reducer (reduce.sh [arg1])*
+**Reducer (reduce.sh [arg1])**
 
 • Take in file containing all instances of key as the argument and assign to the variable ‘key_file’
 • Count key instances (lines in key_file)
