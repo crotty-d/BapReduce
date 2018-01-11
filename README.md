@@ -24,7 +24,7 @@ node’ to distribute data files between two job master nodes and runs them whil
 their progress and ensuring they work together efficiently without errors. To do this, the
 master node should facilitate data transfer between the two job master nodes.
 
-**_Note:** The multi-node engine (aim 2) has not yet been implemented so the project currently only addresses a single node engine (aim 1)_
+**__Note:** The multi-node engine (aim 2) has not yet been implemented so the project currently only addresses a single node engine (aim 1)__
 
 
 ## Running the scripts
