@@ -24,7 +24,8 @@ node’ to distribute data files between two job master nodes and runs them whil
 their progress and ensuring they work together efficiently without errors. To do this, the
 master node should facilitate data transfer between the two job master nodes.
 
-**_Note: The multi-node engine (aim 2) has not yet been implemented so the project currently only addresses a single node engine (aim 1)_**
+**_Note:** The multi-node engine (aim 2) has not yet been implemented so the project currently only addresses a single node engine (aim 1)_
+
 
 ## Running the scripts
 
@@ -43,6 +44,7 @@ NOT IMPLEMENTED YET
 ### Testing
 
 Run ./test_mapreduce.sh in the terminal to test split and single-file performance on product name and country attributes; and also single attribute performance on product number and credit card. It runs each MapReduce program (job_master.sh plus the given arguments) in sequence, displaying steps and values from the program as before. However, it also gives the completion time for each program via the Bash command 'time'. Of the three times provided, the 'real' time is the regular, real-world completion time. For easy performance comparison and recording, these completion times are logged to a corresponding file in the testing directory.
+
 
 ## Outline of key scripts (current state)
 
