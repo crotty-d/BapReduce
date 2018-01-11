@@ -18,7 +18,6 @@ the mapper and reducer and to coordinate and monitor their progress.
 * Communication between the job master and the mapper/reducer should be via named
 pipes.
 
-
 2. In Bash, implement a fully distributed multi-node MapReduce engine that uses a ‘master
 node’ to distribute data files between two job master nodes and runs them while monitoring
 their progress and ensuring they work together efficiently without errors. To do this, the
