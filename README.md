@@ -5,7 +5,7 @@
 1. In Bash, implement a single-node MapReduce engine (‘job master’) that does the
 following:
 
-* Takes a repository of csv data files and a target attribute (column of the data) as input
+* Takes a repository of CSV data files and a target attribute (column of the data) as input
 and outputs a list of key–value pairs, each comprising a unique value (key) of the
 attribute and the number times that value appears in the repository (value or count).
 
@@ -68,13 +68,17 @@ Reduce
 **Mapper (map.sh \[arg1\] \[arg2\])**
 
 * The arguments are assigned to the variables, ‘file’ (file to map) and ‘column’ (attribute, i.e. column number, to target).
-* Isolate (cut command) the all instances of the target key (i.e. all of the corresponding column) in the file to a temporary file (<filename>_instances) in the 'instance_lists' directory.
-* Read through the <filenaname>_instances file line-by-line and output contents to appropriate key files# (one per instance) using write_key_file.sh script.
+* Isolate (cut command) the all instances of the target attribute (i.e. all of the corresponding column) in the file to a temporary file (<filename>_instances) in the 'instance_lists' directory.
+* Read through the <filename>_instances file line-by-line and extract its contents into a number of key files according to the instance value (key), i.e. one file for each key, using write_key_file.sh script.
 * Send key to job master via map_pipe.
 * Alert job master and log that the file has been mapped.
 
 **Reducer (reduce.sh \[arg1\])**
 
-* Take in file containing all instances of key as the argument and assign to the variable ‘key_file’.
+* Take in a key file (contains all instances of that key) as the argument and assign to the variable ‘key_file’.
 * Count key instances (lines in key_file).
 * Send key and count to job master via the reduce_pipe.
+
+**Mutex
+
+p.sh and v.sh respectively lock and unlock critical sections of the above scripts during concurrent writing to files or named pipes
